@@ -10,7 +10,7 @@ export async function POST(req: Request) {
     // Set CORS headers
     const headers = new Headers();
     headers.set('Access-Control-Allow-Origin', 'http://localhost:5173');
-    headers.set('Access-Control-Allow-Methods', 'POST');
+    headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
     const { message } = await req.json();
@@ -43,4 +43,14 @@ export async function POST(req: Request) {
       { status: 500, headers: new Headers() }
     );
   }
+}
+
+export async function OPTIONS() {
+  // Handle preflight requests
+  const headers = new Headers();
+  headers.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  return new NextResponse(null, { headers });
 }
