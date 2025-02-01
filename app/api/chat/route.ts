@@ -7,12 +7,18 @@ const groq = new Groq({
 
 export async function POST(req: Request) {
   try {
+    // Set CORS headers
+    const headers = new Headers();
+    headers.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+    headers.set('Access-Control-Allow-Methods', 'POST');
+    headers.set('Access-Control-Allow-Headers', 'Content-Type');
+
     const { message } = await req.json();
 
     if (!message) {
-      return NextResponse.json(
-        { error: 'Message is required' },
-        { status: 400 }
+      return new NextResponse(
+        JSON.stringify({ error: 'Message is required' }),
+        { status: 400, headers }
       );
     }
 
@@ -26,14 +32,15 @@ export async function POST(req: Request) {
       max_tokens: 1024,
     });
 
-    return NextResponse.json({
-      response: chatCompletion.choices[0].message.content,
-    });
+    return new NextResponse(
+      JSON.stringify({ response: chatCompletion.choices[0].message.content }),
+      { headers }
+    );
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: 'Failed to fetch response from Groq API' },
-      { status: 500 }
+    return new NextResponse(
+      JSON.stringify({ error: 'Failed to fetch response from Groq API' }),
+      { status: 500, headers: new Headers() }
     );
   }
 }
