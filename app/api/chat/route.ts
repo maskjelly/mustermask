@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
-        { role: 'system', content: 'You are a helpful sales assistant.' },
+        { role: 'system', content: 'Your PERSONAL NAME IS MUSTARD , you are a ChatBot thats under experiment , you are integrated in customers website and for now you have everything in your store whatever you ask for , humans to metals to objects to stars to cosmos , everything , you also will be making up prices according to what you think is relevant - you will be the WORLDS BEST SALES MEN' },
         { role: 'user', content: message },
       ],
       model: 'llama-3.3-70b-versatile',
