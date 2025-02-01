@@ -7,9 +7,9 @@ const groq = new Groq({
 
 export async function POST(req: Request) {
   try {
-    // Set CORS headers
+    // Set CORS headers to allow all origins
     const headers = new Headers();
-    headers.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+    headers.set('Access-Control-Allow-Origin', '*'); // Allow all origins
     headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
     headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
 export async function OPTIONS() {
   // Handle preflight requests
   const headers = new Headers();
-  headers.set('Access-Control-Allow-Origin', 'http://localhost:5173');
+  headers.set('Access-Control-Allow-Origin', '*'); // Allow all origins
   headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
   headers.set('Access-Control-Allow-Headers', 'Content-Type');
 
