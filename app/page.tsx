@@ -1,46 +1,50 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Code } from "@/components/ui/code"
-import { ArrowDown } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Code } from "@/components/ui/code";
+import { ArrowDown } from "lucide-react";
 
 export default function Page() {
-  const [showBanner, setShowBanner] = useState(false)
-  const [highlightScript, setHighlightScript] = useState(false)
+  const [showBanner, setShowBanner] = useState(false);
+  const [highlightScript, setHighlightScript] = useState(false);
 
   useEffect(() => {
     // Show the highlight effect after a short delay
-    const timer = setTimeout(() => setHighlightScript(true), 1000)
-    return () => clearTimeout(timer)
-  }, [])
+    const timer = setTimeout(() => setHighlightScript(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Remove highlight when user clicks anywhere on the screen
   useEffect(() => {
     const handleClick = () => {
-      setHighlightScript(false)
-    }
-    window.addEventListener("click", handleClick)
-    return () => window.removeEventListener("click", handleClick)
-  }, [])
+      setHighlightScript(false);
+    };
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
 
-  // Dynamically load the script
+  // Dynamically load the widget script (version v9)
   useEffect(() => {
-    const script = document.createElement("script")
-    script.type = "module"
-    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v9/widget.js"
-    document.body.appendChild(script)
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src =
+      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v4/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [])
+    // Note: We do NOT remove the script on unmount so that the widget remains
+    // intact throughout the session.
+  }, []);
 
   return (
     <div className="min-h-screen bg-white relative">
-      {/* Dark Overlay */}
+      {/* Dark Overlay (lower z-index so it doesn’t cover the widget) */}
       {highlightScript && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300" />
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 transition-opacity duration-300"
+          style={{ pointerEvents: "none" }}
+        />
       )}
 
       {/* Banner */}
@@ -133,5 +137,5 @@ export default function Page() {
         </div>
       </main>
     </div>
-  )
+  );
 }
