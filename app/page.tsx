@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Code } from "@/components/ui/code";
-import { ArrowDown, ArrowLeft } from "lucide-react";
+import {  ArrowLeft } from "lucide-react";
 
 export default function Page() {
   const [theme, setTheme] = useState("light");
