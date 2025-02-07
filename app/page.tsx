@@ -13,11 +13,22 @@ export default function Page() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   useEffect(() => {
+    // Create and append the widget script with our configuration via data attributes
     const script = document.createElement("script");
     script.type = "module";
-    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.14/widget.js";
+    script.src =
+      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.14/widget.js";
     script.async = true;
+    script.setAttribute("data-title", "Support Chat");
+    script.setAttribute("data-position", "bottom-right");
+    script.setAttribute("data-font-family", "Arial, sans-serif");
+    // Optionally, you can also set data-api-url if needed:
+    // script.setAttribute("data-api-url", "https://yourapi.example.com/chat");
+
     document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   // Monochrome theme variables
@@ -93,22 +104,19 @@ export default function Page() {
             >
               <pre className="overflow-x-auto text-left">
                 <code className="block font-mono text-sm sm:text-base">
-                  {`  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.1/widget.js";
-    script.async = true;
-    script.setAttribute("data-title", "Support Chat");
-    script.setAttribute("data-position", "bottom-right");
-    script.setAttribute("data-font-family", "Arial, sans-serif");
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-`}
+                  {`useEffect(() => {
+  const script = document.createElement("script");
+  script.type = "module";
+  script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.14/widget.js";
+  script.async = true;
+  script.setAttribute("data-title", "Support Chat");
+  script.setAttribute("data-position", "bottom-right");
+  script.setAttribute("data-font-family", "Arial, sans-serif");
+  document.body.appendChild(script);
+  return () => {
+    document.body.removeChild(script);
+  };
+}, []);`}
                 </code>
               </pre>
             </div>
@@ -142,7 +150,7 @@ export default function Page() {
           </div>
 
           {/* Trusted By */}
-          <div className="pt-16 mt-16 border-t ${borderColor}">
+          <div className="pt-16 mt-16 border-t">
             <div className="text-sm text-gray-600 mb-6">
               Trusted by forward-thinking teams
             </div>
