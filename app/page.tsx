@@ -17,7 +17,7 @@ export default function Page() {
     const script = document.createElement("script");
     script.type = "module";
     script.src =
-      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.14/widget.js";
+      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v12/widget.js";
     script.async = true;
     script.setAttribute("data-title", "Support Chat");
     script.setAttribute("data-position", "bottom-right");
