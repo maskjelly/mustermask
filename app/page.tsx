@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react";
 export default function Page() {
   const [theme, setTheme] = useState("light");
   const [showBanner, setShowBanner] = useState(false);
-  const [highlightScript, setHighlightScript] = useState(false);
+  const [highlightScript] = useState(false);
 
   const toggleTheme = () =>
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
