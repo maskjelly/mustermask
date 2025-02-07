@@ -13,22 +13,11 @@ export default function Page() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   useEffect(() => {
-    // Create and append the widget script with our configuration via data attributes
     const script = document.createElement("script");
     script.type = "module";
-    script.src =
-      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v15/widget.js";
+    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v44/widget.js";
     script.async = true;
-    script.setAttribute("data-title", "Support Chat");
-    script.setAttribute("data-position", "bottom-right");
-    script.setAttribute("data-font-family", "Arial, sans-serif");
-    // Optionally, you can also set data-api-url if needed:
-    // script.setAttribute("data-api-url", "https://yourapi.example.com/chat");
-
     document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
   }, []);
 
   // Monochrome theme variables
