@@ -26,11 +26,19 @@ export default function Page() {
   useEffect(() => {
     const script = document.createElement("script");
     script.type = "module";
-    script.src =
-      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v5.5/widget.js";
+    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v5.5/widget.js";
     script.async = true;
+    script.setAttribute("data-title", "Support Chat");
+    script.setAttribute("data-position", "bottom-right");
+    script.setAttribute("data-font-family", "Arial, sans-serif");
+
     document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
+
 
   // Monochrome theme variables
   const borderColor = theme === "light" ? "border-gray-200" : "border-gray-800";
