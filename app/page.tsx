@@ -13,32 +13,12 @@ export default function Page() {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   useEffect(() => {
-    const timer = setTimeout(() => setHighlightScript(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleClick = () => setHighlightScript(false);
-    window.addEventListener("click", handleClick);
-    return () => window.removeEventListener("click", handleClick);
-  }, []);
-
-  useEffect(() => {
     const script = document.createElement("script");
     script.type = "module";
-    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.1/widget.js";
+    script.src = "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v6.14/widget.js";
     script.async = true;
-    script.setAttribute("data-title", "Support Chat");
-    script.setAttribute("data-position", "bottom-right");
-    script.setAttribute("data-font-family", "Arial, sans-serif");
-
     document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
   }, []);
-
 
   // Monochrome theme variables
   const borderColor = theme === "light" ? "border-gray-200" : "border-gray-800";
