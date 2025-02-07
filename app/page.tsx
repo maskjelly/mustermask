@@ -6,7 +6,7 @@ import { Sparkles } from "lucide-react"
 
 export default function Page() {
   const [showBanner, setShowBanner] = useState(false)
-
+  
   useEffect(() => {
     const script = document.createElement("script");
     script.type = "module";
