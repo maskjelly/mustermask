@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {  ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function Page() {
   const [theme, setTheme] = useState("light");
@@ -27,7 +27,7 @@ export default function Page() {
     const script = document.createElement("script");
     script.type = "module";
     script.src =
-      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v5/widget.js";
+      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v5.5/widget.js";
     script.async = true;
     document.body.appendChild(script);
   }, []);
@@ -105,7 +105,15 @@ export default function Page() {
             >
               <pre className="overflow-x-auto text-left">
                 <code className="block font-mono text-sm sm:text-base">
-                  {`<script type="module">\n  import { initChat } from 'https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v5/widget.js'\n  initChat({ theme: '${theme}' })\n</script>`}
+                  {`  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src =
+      "https://cdn.jsdelivr.net/gh/maskjelly/Repset@main/v5.5/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+`}
                 </code>
               </pre>
             </div>
