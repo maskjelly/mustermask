@@ -2,16 +2,25 @@
 import { Groq } from 'groq-sdk';
 import { NextResponse } from 'next/server';
 
-// Initialize Groq client
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY, // Ensure your environment variable is set
+  apiKey: process.env.GROQ_API_KEY,
 });
 
-// This API retains conversation context by accepting the conversation history from the widget.
+const SYSTEM_PROMPT = `You are a sales assistant. Your responses should:
+1. Only discuss products and sales
+2. Be friendly and use emojis
+3. Focus on benefits and solutions
+
+For any non-sales questions, always respond:
+"I'm here to help you find amazing products you'll love! 🌟 What are you looking for today? 💫"
+`;
+
 export async function POST(req: Request) {
   try {
-    const headers = new Headers();
-    headers.set('Access-Control-Allow-Origin', '*');
+    const headers = new Headers({
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    });
 
     const { userId, history } = await req.json();
 
@@ -22,41 +31,50 @@ export async function POST(req: Request) {
       );
     }
 
-    // Prepend a system prompt to help the chatbot maintain context.
     const messages = [
-      {
-        role: 'system',
-        content:
-          'You are a high-energy, persuasive, and friendly sales agent embedded as a widget on business websites. Your job is to sell the company’s products, answer customer questions confidently, and always position yourself as the best solution. You are biased toward selling—highlighting benefits, overcoming objections, and making every interaction engaging. Adapt your tone to match the customer’s style—casual, professional, or playful—while keeping responses concise, clear, and persuasive',
-      },
-      ...history,
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history
     ];
 
+    // Fixed API call without the problematic 'stop' parameter
     const chatCompletion = await groq.chat.completions.create({
       messages,
-      model: 'llama-3.3-70b-specdec',
-      temperature: 0.5,
-      max_tokens: 1024,
+      model: 'gemma2-9b-it',
+      temperature: 0.1,
+      max_tokens: 1024
     });
 
-    const assistantResponse = chatCompletion.choices[0].message.content;
-
-    return new NextResponse(JSON.stringify({ response: assistantResponse }), {
-      headers,
-    });
-  } catch (error) {
-    console.error('Error:', error);
     return new NextResponse(
-      JSON.stringify({ error: 'Internal server error' }),
-      { status: 500, headers: new Headers() }
+      JSON.stringify({ response: chatCompletion.choices[0].message.content }),
+      { headers }
+    );
+
+  } catch ({error} : any) {
+    console.error('Error in chat endpoint:', error);
+    
+    // Improved error response
+    return new NextResponse(
+      JSON.stringify({ 
+        error: 'Internal server error', 
+        details: error.message 
+      }),
+      { 
+        status: 500, 
+        headers: new Headers({
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        })
+      }
     );
   }
 }
 
 export async function OPTIONS() {
-  const headers = new Headers();
-  headers.set('Access-Control-Allow-Origin', '*');
-  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  headers.set('Access-Control-Allow-Headers', 'Content-Type');
-  return new NextResponse(null, { headers });
+  return new NextResponse(null, {
+    headers: new Headers({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    })
+  });
 }
