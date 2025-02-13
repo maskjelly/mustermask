@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Testman",
+  title: "Customer Support Agent",
   description: "",
 };
 
@@ -27,7 +27,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div
+          className="bg-[url('https://localhost:3000/one.png')]"
+          style={{
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+            height: "100vh",
+            width: "100vw",
+          }}
+        >
+          {children}
+        </div>
       </body>
     </html>
   );

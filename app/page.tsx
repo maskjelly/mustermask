@@ -22,7 +22,7 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-zinc-900 font-medium">
+    <div className="min-h-screen text-zinc-900 font-medium">
       {showBanner && (
         <div className="fixed top-0 inset-x-0 border-zinc-100 p-3 text-center z-40 bg-white/80 backdrop-blur-md">
           Everything is under work right now
