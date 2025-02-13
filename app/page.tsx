@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 
@@ -14,7 +14,7 @@ const frostedGlassStyle = {
 };
 
 export default function Page() {
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner] = useState(false);
 
   useEffect(() => {
     const script = document.createElement("script");
