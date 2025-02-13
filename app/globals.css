@@ -7,12 +7,48 @@ body {
   margin: 0;
   padding: 0;
 }
+.code-block-animated {
+  position: relative;
+  overflow: hidden;
+}
 
-.bg-hero-pattern {
-  background-image: url('/one.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+.code-block-animated::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  animation: wave 5s linear infinite;
+  transform: translate(-25%, 0); /* Start position */
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-25%, 0);
+  }
+  100% {
+    transform: translate(25%, 0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite; /* Adjust speed as needed */
 }
 
 @layer base {

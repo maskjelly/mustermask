@@ -24,11 +24,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div
-          className="bg-[url('https://localhost:3000/one.png')]"
+          className="bg-[url('https://usb.whiteye.in/one.png')]"
           style={{
             backgroundSize: "cover",
             backgroundPosition: "center",
