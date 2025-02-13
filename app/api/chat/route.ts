@@ -49,14 +49,17 @@ export async function POST(req: Request) {
       { headers }
     );
 
-  } catch ({error} : any) {
+  } catch (error) {
     console.error('Error in chat endpoint:', error);
+
+    const errorMessage = error instanceof Error 
+        ? error.message : 'Unknown Error Shit';
     
     // Improved error response
     return new NextResponse(
       JSON.stringify({ 
         error: 'Internal server error', 
-        details: error.message 
+        details: errorMessage, 
       }),
       { 
         status: 500, 
